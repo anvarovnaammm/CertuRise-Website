@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CertiRise — Yutuqlardan kelajakka</title>
+<style>
+:root {
+  --blue:#315cf5;
+  --dark:#172443;
+  --muted:#73809a;
+  --bg:#f5f7fc;
+  --line:#e8ecf5;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--dark)}
+button,input{font:inherit}
+button{cursor:pointer}
+.layout{display:flex;min-height:100vh}
+aside{width:235px;background:white;border-right:1px solid var(--line);padding:26px 17px;flex-shrink:0}
+.logo{font-size:25px;font-weight:900;letter-spacing:-1px;color:var(--blue);padding:4px 10px 32px}
+.logo span{color:var(--dark)}
+.nav-label{font-size:11px;color:#9aa4b8;margin:15px 12px 10px;letter-spacing:1.5px}
+.nav{display:flex;align-items:center;gap:12px;width:100%;padding:13px 12px;border:0;border-radius:11px;background:transparent;text-align:left;color:#66738c;margin:3px 0}
+.nav:hover,.nav.active{background:#edf1ff;color:var(--blue);font-weight:bold}
+.aside-note{margin-top:35px;padding:16px;background:#f0f4ff;border-radius:14px;font-size:13px;line-height:1.6;color:#61708f}
+main{flex:1;min-width:0}
+.topbar{background:white;border-bottom:1px solid var(--line);padding:18px 4%;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.topbar small{color:var(--muted)}
+.avatar{width:39px;height:39px;border-radius:13px;background:#e9edff;color:var(--blue);display:grid;place-items:center;font-weight:bold}
+.content{max-width:1250px;padding:32px 4%;margin:auto}
+.welcome{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:25px}
+.eyebrow{color:var(--blue);font-size:12px;font-weight:bold;letter-spacing:1.5px}
+h1{font-size:clamp(26px,3vw,36px);letter-spacing:-1px;margin:10px 0}
+h2{font-size:20px;margin:0 0 7px}
+p{color:var(--muted);line-height:1.65}
+.primary{background:var(--blue);color:white;border:0;padding:13px 18px;border-radius:11px;font-weight:bold}
+.primary:hover{background:#2046d8}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin:25px 0}
+.card{background:white;border:1px solid var(--line);border-radius:17px;padding:21px;min-width:0}
+.stat-icon{width:42px;height:42px;background:#edf1ff;border-radius:13px;display:grid;place-items:center;font-size:21px}
+.stat-number{font-size:29px;font-weight:800;margin:15px 0 5px}
+.muted{color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,1fr);gap:18px}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}
+.link{border:0;background:transparent;color:var(--blue);font-weight:bold}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th{text-align:left;font-size:11px;color:#929db2;letter-spacing:.7px;font-weight:bold}
+th,td{padding:15px 8px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+.pill{display:inline-block;padding:6px 9px;border-radius:8px;background:#edf1ff;color:var(--blue);font-size:11px;font-weight:bold}
+.gold{background:#fff4d9;color:#9c6b00}
+.person{display:flex;align-items:center;gap:10px}
+.person-icon{width:35px;height:35px;flex-shrink:0;border-radius:11px;background:#eaf0ff;display:grid;place-items:center;color:var(--blue);font-weight:bold}
+.certificate{border:1px solid var(--line);padding:14px;border-radius:12px;display:flex;gap:12px;align-items:center;margin-top:11px}
+.cert-icon{font-size:23px;background:#f0f4ff;padding:12px;border-radius:11px}
+.certificate strong{font-size:13px}
+.certificate small{display:block;color:var(--muted);margin-top:6px}
+.search{width:min(280px,100%);padding:12px 14px;border:1px solid var(--line);border-radius:11px;outline:none}
+.search:focus{border-color:var(--blue)}
+.page{display:none}
+.page.active{display:block}
+.banner{background:linear-gradient(120deg,#2448d9,#6081ff);color:white;border-radius:20px;padding:30px;margin-bottom:22px;position:relative;overflow:hidden}
+.banner p{color:#e1e7ff;max-width:530px}
+.banner .eyebrow{color:#d9e1ff}
+.banner h1{font-size:clamp(28px,4vw,42px);line-height:1.15}
+.banner-mark{position:absolute;right:28px;top:10px;font-size:110px;opacity:.12;font-weight:900}
+.school-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.school-card{background:white;border:1px solid var(--line);border-radius:15px;padding:22px;cursor:pointer}
+.school-card:hover{border-color:#aabaff;transform:translateY(-2px)}
+.profile-head{display:flex;align-items:center;gap:17px;margin:18px 0 25px}
+.big-avatar{width:76px;height:76px;border-radius:22px;background:#e9edff;display:grid;place-items:center;font-size:25px;font-weight:bold;color:var(--blue)}
+.notice{padding:14px;background:#fff6df;color:#805b09;border-radius:11px;font-size:13px;line-height:1.6;margin-top:15px}
+footer{text-align:center;color:#9aa4b8;font-size:12px;padding:28px}
+@media(max-width:900px){
+ .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .grid{grid-template-columns:1fr}
+ aside{width:190px}
+}
+@media(max-width:600px){
+ .layout{display:block}
+ aside{width:100%;padding:12px;display:flex;align-items:center;gap:7px;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line)}
+ .logo{font-size:20px;padding:8px}
+ .nav-label,.aside-note{display:none}
+ .nav{width:auto;white-space:nowrap;padding:10px;font-size:12px}
+ .topbar{padding:13px 5%}
+ .content{padding:22px 4%}
+ .welcome{align-items:flex-start;flex-direction:column}
+ .stats{gap:9px}
+ .card{padding:15px}
+ .stat-number{font-size:24px}
+ .school-list{grid-template-columns:1fr}
+ table{font-size:12px}
+ th,td{padding:12px 5px}
+ .search{width:100%}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside>
+  <div class="logo">CERTI<span>RISE.</span></div>
+  <div class="nav-label">ASOSIY MENYU</div>
+  <button class="nav active" data-page="home">⌂ &nbsp; Bosh sahifa</button>
+  <button class="nav" data-page="students">♙ &nbsp; O‘quvchilar</button>
+  <button class="nav" data-page="schools">▦ &nbsp; Maktablar va sinflar</button>
+  <button class="nav" data-page="ranking">↗ &nbsp; Reytinglar</button>
+  <button class="nav" data-page="certificates">▤ &nbsp; Sertifikatlar</button>
+  <div class="aside-note">✦ Har bir yutuq — kelajak sari qadam.<br><br><b>O‘rgan. Erish. Yuksal.</b></div>
+</aside>
+
+<main>
+<header class="topbar">
+  <div><b id="top-title">Bosh sahifa</b><br><small>O‘quvchilar yutuqlari platformasi</small></div>
+  <div class="avatar">CR</div>
+</header>
+
+<div class="content">
+
+<section class="page active" id="home">
+  <div class="banner">
+    <div class="eyebrow">XUSH KELIBSIZ!</div>
+    <h1>Yutuqlaringizni<br>kelajakka aylantiring.</h1>
+    <p>Sertifikatlaringizni jamlang, natijalaringizni kuzating va maktablar reytingida o‘z o‘rningizni toping.</p>
+    <button class="primary" style="background:white;color:#315cf5" onclick="showPage('students')">O‘quvchilarni ko‘rish →</button>
+    <div class="banner-mark">CR</div>
+  </div>
+  <div class="stats">
+    <div class="card"><div class="stat-icon">🎓</div><div class="stat-number">1 240</div><div class="muted">O‘quvchilar</div></div>
+    <div class="card"><div class="stat-icon">🏅</div><div class="stat-number">8 450</div><div class="muted">Sertifikatlar</div></div>
+    <div class="card"><div class="stat-icon">🏫</div><div class="stat-number">32</div><div class="muted">Maktablar</div></div>
+    <div class="card"><div class="stat-icon">📈</div><div class="stat-number">96</div><div class="muted">Faol sinflar</div></div>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <div class="section-head"><div><h2>🏆 Yetakchi sinflar</h2><div class="muted">Tasdiqlangan sertifikatlar soni</div></div><button class="link" onclick="showPage('ranking')">Barchasi →</button></div>
+      <table><thead><tr><th>O‘RIN</th><th>SINF</th><th>SERTIFIKAT</th></tr></thead><tbody id="home-ranks"></tbody></table>
+    </div>
+    <div class="card">
+      <div class="section-head"><div><h2>✨ So‘nggi yutuqlar</h2><div class="muted">Namuna sertifikatlar</div></div></div>
+      <div id="home-certs"></div>
+      <div class="notice">ℹ️ Bu saytda ko‘rsatilgan raqamlar namuna uchun kiritilgan. Ular haqiqiy maktab statistikasi emas.</div>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="students">
+  <div class="welcome"><div><div class="eyebrow">O‘QUVCHI PORTFOLIOSI</div><h1>O‘quvchilar</h1><p>O‘quvchi profili va yutuqlarini qidiring.</p></div></div>
+  <input id="student-search" class="search" placeholder="🔍 Ism yoki sinf bo‘yicha qidirish...">
+  <div class="card" style="margin-top:18px;overflow-x:auto">
+    <table><thead><tr><th>O‘QUVCHI</th><th>SINF</th><th>SERTIFIKAT</th><th>UNIVERSITET REJASI</th><th></th></tr></thead><tbody id="students-table"></tbody></table>
+  </div>
+  <div id="student-detail" class="card" style="display:none;margin-top:18px"></div>
+</section>
+
+<section class="page" id="schools">
+  <div class="eyebrow">TA’LIM TIZIMI</div><h1>Maktablar va sinflar</h1>
+  <p>Maktabni tanlab, sinflar natijalarini ko‘ring.</p>
+  <div class="school-list" id="school-list"></div>
+  <div id="class-detail" class="card" style="display:none;margin-top:20px"></div>
+</section>
+
+<section class="page" id="ranking">
+  <div class="eyebrow">NATIJALAR VA TAHLIL</div><h1>Reytinglar</h1>
+  <p>Reytinglar tasdiqlangan sertifikatlar soniga asoslanadi.</p>
+  <div class="card">
+    <div class="section-head"><h2>🏆 Sinflar reytingi</h2><span class="pill">NAMUNA</span></div>
+    <table><thead><tr><th>O‘RIN</th><th>SINF</th><th>MAKTAB</th><th>SERTIFIKAT</th></tr></thead><tbody id="ranking-table"></tbody></table>
+  </div>
+  <div class="stats">
+    <div class="card"><div class="muted">Viloyat</div><div class="stat-number">8 450</div><div class="muted">Namuna sertifikat</div></div>
+    <div class="card"><div class="muted">Maktab</div><div class="stat-number">420</div><div class="muted">Namuna sertifikat</div></div>
+  </div>
+  <div class="notice">Reytingga faqat vakolatli shaxs tomonidan tasdiqlangan sertifikatlar kiritilishi kerak. Bu demo versiyada ma’lumotlar avtomatik ravishda haqiqiy bazadan olinmaydi.</div>
+</section>
+
+<section class="page" id="certificates">
+  <div class="eyebrow">YUTUQLAR ARXIVI</div><h1>Sertifikatlar</h1>
+  <p>Sertifikat sanalari va amal qilish muddatlarini kuzating.</p>
+  <input id="cert-search" class="search" placeholder="🔍 Sertifikat yoki o‘quvchini qidirish...">
+  <div class="card" style="margin-top:18px;overflow-x:auto">
+    <table><thead><tr><th>SERTIFIKAT</th><th>O‘QUVCHI</th><th>OLINGAN SANA</th><th>MUDDATI TUGAYDI</th><th>HOLATI</th></tr></thead><tbody id="cert-table"></tbody></table>
+  </div>
+  <div class="notice">Muddat eslatmalari hozircha sahifada hisoblanadi. Sayt yopiq turganda xabar yuborish uchun keyinchalik server yoki maxsus xizmat ulash kerak bo‘ladi.</div>
+</section>
+
+<footer> CERTIRISE © 2026 · Bitta platforma. Ko‘plab yutuqlar. Aniqroq kelajak.</footer>
+</div>
+</main>
+</div>
+
+<script>
+const students = [
+ {id:1,name:"Aliya Bahodirova",cls:"9-A",school:"1-maktab",count:12,uni:"TATU",certs:["Ingliz tili B2","Matematika olimpiadasi","IT asoslari"]},
+ {id:2,name:"Aziz Karimov",cls:"10-B",school:"1-maktab",count:10,uni:"INHA",certs:["Informatika","Ingliz tili B1"]},
+ {id:3,name:"Madina Islomova",cls:"8-A",school:"2-maktab",count:9,uni:"Jahon tillari",certs:["Ingliz tili B2","Fan olimpiadasi"]},
+ {id:4,name:"Jasur Aliyev",cls:"9-B",school:"2-maktab",count:7,uni:"Hozircha belgilanmagan",certs:["Matematika","Robototexnika"]}
+];
+const ranks=[
+ {cls:"9-A",school:"1-maktab",count:64},
+ {cls:"10-B",school:"1-maktab",count:58},
+ {cls:"8-A",school:"2-maktab",count:47},
+ {cls:"9-B",school:"2-maktab",count:39}
+];
+const certs=[
+ {name:"Ingliz tili B2",student:"Aliya Bahodirova",date:"12.03.2026",end:"12.03.2027"},
+ {name:"Matematika olimpiadasi",student:"Aziz Karimov",date:"08.06.2026",end:"Muddatsiz"},
+ {name:"IT asoslari",student:"Madina Islomova",date:"19.09.2026",end:"19.09.2027"},
+ {name:"Robototexnika",student:"Jasur Aliyev",date:"02.10.2026",end:"02.10.2027"}
+];
+function showPage(id){
+ document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));
+ document.querySelectorAll(".nav").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
+ const titles={home:"Bosh sahifa",students:"O‘quvchilar",schools:"Maktablar va sinflar",ranking:"Reytinglar",certificates:"Sertifikatlar"};
+ document.getElementById("top-title").textContent=titles[id]||"CertiRise";
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll(".nav").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+function person(s){return `<div class="person"><div class="person-icon">${s.name.split(" ").map(x=>x[0]).slice(0,2).join("")}</div><div><b>${s.name}</b><div class="muted">${s.school}</div></div></div>`}
+function drawHome(){
+ document.getElementById("home-ranks").innerHTML=ranks.map((r,i)=>`<tr><td>${i+1===1?"🥇":i+1===2?"🥈":i+1===3?"🥉":i+1}</td><td><b>${r.cls}</b></td><td><span class="pill">${r.count} ta</span></td></tr>`).join("");
+ document.getElementById("home-certs").innerHTML=certs.slice(0,3).map(c=>`<div class="certificate"><div class="cert-icon">🏅</div><div><strong>${c.name}</strong><small>${c.student} · ${c.date}</small></div></div>`).join("");
+}
+function drawStudents(q=""){
+ const list=students.filter(s=>(s.name+" "+s.cls+" "+s.school).toLowerCase().includes(q.toLowerCase()));
+ document.getElementById("students-table").innerHTML=list.map(s=>`<tr><td>${person(s)}</td><td>${s.cls}</td><td><span class="pill">${s.count} ta</span></td><td>${s.uni}</td><td><button class="link" onclick="profile(${s.id})">Profil →</button></td></tr>`).join("")||'<tr><td colspan="5">O‘quvchi topilmadi.</td></tr>';
+}
+function profile(id){
+ const s=students.find(x=>x.id===id);
+ const d=document.getElementById("student-detail");
+ d.style.display="block";
+ d.innerHTML=`<div class="profile-head"><div class="big-avatar">${s.name.split(" ").map(x=>x[0]).slice(0,2).join("")}</div><div><span class="pill">NAMUNA PROFIL</span><h2>${s.name}</h2><div class="muted">${s.cls} sinf · ${s.school}</div></div></div><div class="stats"><div><div class="stat-number">${s.count}</div><div class="muted">Jami sertifikat</div></div><div><b>${s.uni}</b><div class="muted">Universitet rejasi</div></div></div><h2>Sertifikatlar</h2>${s.certs.map(c=>`<div class="certificate"><div class="cert-icon">🏅</div><div><strong>${c}</strong><small>Namuna sertifikat yozuvi</small></div></div>`).join("")}`;
+ d.scrollIntoView({behavior:"smooth",block:"start"});
+}
+document.getElementById("student-search").addEventListener("input",e=>drawStudents(e.target.value));
+function drawSchools(){
+ const schools=[{name:"1-maktab",count:122,classes:["9-A","10-B"]},{name:"2-maktab",count:86,classes:["8-A","9-B"]}];
+ document.getElementById("school-list").innerHTML=schools.map((s,i)=>`<div class="school-card" onclick="openSchool(${i})"><div class="stat-icon">🏫</div><h2 style="margin-top:16px">${s.name}</h2><p>${s.classes.length} ta namuna sinf · ${s.count} ta sertifikat</p><span class="pill">Sinflarni ko‘rish →</span></div>`).join("");
+}
+function openSchool(i){
+ const names=[{name:"1-maktab",classes:["9-A","10-B"]},{name:"2-maktab",classes:["8-A","9-B"]}];
+ const s=names[i],d=document.getElementById("class-detail");d.style.display="block";
+ d.innerHTML=`<h2>${s.name} — sinflar</h2><p>Kerakli sinfni tanlang.</p>`+s.classes.map(c=>{const r=ranks.find(x=>x.cls===c);return `<div class="certificate"><div class="cert-icon">📚</div><div style="flex:1"><b>${c} sinf</b><small>${r.count} ta sertifikat · namuna</small></div><button class="link" onclick="showPage('ranking')">Reyting →</button></div>`}).join("");
+ d.scrollIntoView({behavior:"smooth"});
+}
+function drawRanking(){
+ document.getElementById("ranking-table").innerHTML=ranks.map((r,i)=>`<tr><td>${i+1}</td><td><b>${r.cls}</b></td><td>${r.school}</td><td><span class="pill">${r.count} ta</span></td></tr>`).join("");
+}
+function drawCerts(q=""){
+ const filtered=certs.filter(c=>(c.name+" "+c.student).toLowerCase().includes(q.toLowerCase()));
+ document.getElementById("cert-table").innerHTML=filtered.map(c=>{
+ let status="Faol",cls="pill";
+ if(c.end!=="Muddatsiz"){
+ const parts=c.end.split(".");const end=new Date(+parts[2],+parts[1]-1,+parts[0]);
+ const days=Math.ceil((end-new Date())/86400000);
+ if(days<0){status="Muddati tugagan";cls="pill gold"}
+ else if(days<=30){status="Muddat yaqin";cls="pill gold"}
+ }
+ return `<tr><td><b>${c.name}</b></td><td>${c.student}</td><td>${c.date}</td><td>${c.end}</td><td><span class="${cls}">${c.end==="Muddatsiz"?"Muddatsiz":status}</span></td></tr>`;
+ }).join("")||'<tr><td colspan="5">Sertifikat topilmadi.</td></tr>';
+}
+document.getElementById("cert-search").addEventListener("input",e=>drawCerts(e.target.value));
+drawHome();drawStudents();drawSchools();drawRanking();drawCerts();
+</script>
+</body>
+</html>
